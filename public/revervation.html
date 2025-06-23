@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay | WERGHI'S Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Reservation Page Specific Styles */
+        .reservation-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('reservation-hero.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .reservation-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .reservation-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(193, 154, 107, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .room-selection {
+            margin: 30px 0;
+        }
+
+        .room-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .room-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        .room-option input {
+            margin-right: 15px;
+        }
+
+        .room-info {
+            flex-grow: 1;
+        }
+
+        .room-info h4 {
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .room-price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .reservation-summary {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            align-self: start;
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-total {
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 20px;
+            color: var(--secondary-color);
+        }
+
+        .terms-check {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .terms-check input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .reservation-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .reservation-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .reservation-form {
+                padding: 25px;
+            }
+        }
+
+        .main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+}
+    </style>
+</head>
+<body>
+    <header class="main-header">
+    <nav class="navbar">
+        <a href="index.html" class="logo">WERGHI'S Hotel</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="#bookingForm" class="nav-link">Book Now</a></li>
+           
+        </ul>
+    </nav>
+</header>
+    <section class="reservation-hero">
+        <div class="hero-content">
+            <h1>Book Your Stay</h1>
+            <p>Experience luxury at WERGHI'S Hotel</p>
+        </div>
+    </section>
+
+    <div class="reservation-container">
+        <div class="reservation-form">
+            <h2 class="form-title">Reservation Details</h2>
+            
+            <form id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkin">Check-In Date</label>
+                        <input type="date" id="checkin" name="checkin" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="checkout">Check-Out Date</label>
+                        <input type="date" id="checkout" name="checkout" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="adults">Adults</label>
+                        <select id="adults" name="adults" required>
+                            <option value="1">1 Adult</option>
+                            <option value="2" selected>2 Adults</option>
+                            <option value="3">3 Adults</option>
+                            <option value="4">4 Adults</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="children">Children</label>
+                        <select id="children" name="children">
+                            <option value="0" selected>No Children</option>
+                            <option value="1">1 Child</option>
+                            <option value="2">2 Children</option>
+                            <option value="3">3 Children</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="room-selection">
+                    <h3>Select Your Room</h3>
+                    
+                    <div class="room-option">
+                        <input type="radio" id="deluxe" name="room" value="deluxe" checked>
+                        <div class="room-info">
+                            <h4>Deluxe Room</h4>
+                            <p>Spacious room with city view and premium amenities</p>
+                        </div>
+                        <div class="room-price">80dt/night</div>
+                    </div>
+                    
+                    <div class="room-option">
+                        <input type="radio" id="executive" name="room" value="executive">
+                        <div class="room-info">
+                            <h4>Executive Suite</h4>
+                            <p>Luxurious suite with separate living area and balcony</p>
+                        </div>
+                        <div class="room-price">130dt/night</div>
+                    </div>
+                    
+                    <div class="room-option">
+                        <input type="radio" id="standard" name="room" value="standard">
+                        <div class="room-info">
+                            <h4>Standard Room</h4>
+                            <p>Comfortable accommodation with all essential amenities</p>
+                        </div>
+                        <div class="room-price">50dt/night</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="special">Special Requests</label>
+                    <textarea id="special" name="special" rows="4" placeholder="Any special requirements or preferences..."></textarea>
+                </div>
+                
+                <div class="terms-check">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="#">terms and conditions</a> and <a href="#">privacy policy</a></label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Complete Reservation</button>
+            </form>
+        </div>
+        
+        <div class="reservation-summary">
+            <h3 class="summary-title">Your Stay Summary</h3>
+            
+            <div class="summary-item">
+                <span>Check-In:</span>
+                <span id="summary-checkin">--</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Check-Out:</span>
+                <span id="summary-checkout">--</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Nights:</span>
+                <span id="summary-nights">0</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Guests:</span>
+                <span id="summary-guests">2 Adults</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Room Type:</span>
+                <span id="summary-room">Deluxe Room</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Room Rate:</span>
+                <span id="summary-rate">80dt/night</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Subtotal:</span>
+                <span id="summary-subtotal">0dt</span>
+            </div>
+            
+            <div class="summary-item">
+                <span>Taxes & Fees:</span>
+                <span id="summary-taxes">0dt</span>
+            </div>
+            
+            <div class="summary-total">
+                <span>Total:</span>
+                <span id="summary-total">0dt</span>
+            </div>
+            
+            <div class="amenities-reminder">
+                <h4>Included Amenities:</h4>
+                <ul>
+                    <li><i class="fas fa-wifi"></i> Free High-Speed WiFi</li>
+                    <li><i class="fas fa-swimming-pool"></i> Pool Access</li>
+                    <li><i class="fas fa-utensils"></i> Breakfast</li>
+                    <li><i class="fas fa-dumbbell"></i> Fitness Center</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be inserted by JavaScript -->
+
+    <script>
+        // Real-time reservation summary update
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('bookingForm');
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+            const adultsInput = document.getElementById('adults');
+            const childrenInput = document.getElementById('children');
+            const roomInputs = document.querySelectorAll('input[name="room"]');
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            checkinInput.min = today;
+            
+            // Update checkout min date when checkin changes
+            checkinInput.addEventListener('change', function() {
+                checkoutInput.min = this.value;
+                updateSummary();
+            });
+            
+            // Update summary when any input changes
+            form.addEventListener('change', updateSummary);
+            form.addEventListener('input', updateSummary);
+            
+            function updateSummary() {
+                // Dates
+                document.getElementById('summary-checkin').textContent = checkinInput.value || '--';
+                document.getElementById('summary-checkout').textContent = checkoutInput.value || '--';
+                
+                // Calculate nights
+                let nights = 0;
+                if (checkinInput.value && checkoutInput.value) {
+                    const checkin = new Date(checkinInput.value);
+                    const checkout = new Date(checkoutInput.value);
+                    nights = Math.round((checkout - checkin) / (1000 * 60 * 60 * 24));
+                }
+                document.getElementById('summary-nights').textContent = nights;
+                
+                // Guests
+                const adults = adultsInput.value;
+                const children = childrenInput.value;
+                let guestsText = `${adults} Adult${adults > 1 ? 's' : ''}`;
+                if (children > 0) {
+                    guestsText += `, ${children} Child${children > 1 ? 'ren' : ''}`;
+                }
+                document.getElementById('summary-guests').textContent = guestsText;
+                
+                // Room selection
+                let selectedRoom = '';
+                let roomRate = 0;
+                roomInputs.forEach(input => {
+                    if (input.checked) {
+                        selectedRoom = input.nextElementSibling.querySelector('h4').textContent;
+                        roomRate = parseInt(input.nextElementSibling.nextElementSibling.textContent);
+                    }
+                });
+                document.getElementById('summary-room').textContent = selectedRoom;
+                document.getElementById('summary-rate').textContent = `${roomRate}dt/night`;
+                
+                // Calculate totals
+                const subtotal = nights * roomRate;
+                const taxes = Math.round(subtotal * 0.1); // 10% tax
+                const total = subtotal + taxes;
+                
+                document.getElementById('summary-subtotal').textContent = `${subtotal}dt`;
+                document.getElementById('summary-taxes').textContent = `${taxes}dt`;
+                document.getElementById('summary-total').textContent = `${total}dt`;
+            }
+            
+            // Initialize summary
+            updateSummary();
+            
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the data to your server
+                alert('Thank you for your reservation! A confirmation has been sent to your email.');
+                form.reset();
+                updateSummary();
+            });
+        });
+    </script>
+    
+    <script src="main.js"></script>
+</body>
+</html>

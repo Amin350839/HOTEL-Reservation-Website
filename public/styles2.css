@@ -1,0 +1,114 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7fafc;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #000;
+    color: #fff;
+    padding: 1rem 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #ef4444;
+}
+
+.nav-link.active {
+    color: #ef4444;
+}
+
+.main {
+    padding: 2rem 0;
+}
+
+.content {
+    margin-bottom: 2rem;
+}
+
+.content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.content p {
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.trainers {
+    display: flex;
+    gap: 2rem;
+}
+
+.trainer-card {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.trainer-card img {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+}
+
+.trainer-card h2 {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+    padding: 0 1rem;
+}
+
+.trainer-card p {
+    color: #718096;
+    padding: 0 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.social-links a {
+    color: #718096;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #000;
+}
+.price {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
